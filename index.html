@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<!-- © 2026 Mathew. All rights reserved. -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BAB — Cairo Cards</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@600;800&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/game.css?v=5" />
+</head>
+<body>
+  <section class="screen" id="screen-title">
+    <h1>BAB</h1>
+    <div class="ar-title">باب</div>
+    <div class="tag">Egyptian Arabic · Collectible cards</div>
+    <p class="blurb">
+      You start at zero. Hear a word, see how it sounds in English letters,
+      use it once with the answer showing, then we hide it and ask.
+      The cafe is the classroom. The cards are the words.
+    </p>
+    <button class="btn" id="sound-test">Test speakers</button>
+    <p class="tag" id="sound-status"></p>
+    <button class="btn" id="play-btn">Start from nothing</button>
+    <button class="btn ghost" id="continue-btn">Back to the ahwa</button>
+    <button class="btn ghost" id="collection-btn">Collection</button>
+  </section>
+
+  <section class="screen hidden" id="screen-hero">
+    <h2>Whose mouth are you using?</h2>
+    <p class="tag" style="color:#b9a07a">Egyptian conjugates for the speaker. This picks كويس vs كويسة, عايز vs عايزة.</p>
+    <div class="hero-row">
+      <figure class="hero-pick" data-hero="m">
+        <img src="assets/hero-m.jpg" alt="El-Ghariib" />
+        <figcaption>
+          <div class="ar">الغريب</div>
+          <div class="lat">El-Ghariib · masculine</div>
+          <div class="note">Izzayyak, aayiz, kwayyes</div>
+        </figcaption>
+      </figure>
+      <figure class="hero-pick" data-hero="f">
+        <img src="assets/hero-f.jpg" alt="El-Ghariiba" />
+        <figcaption>
+          <div class="ar">الغريبة</div>
+          <div class="lat">El-Ghariiba · feminine</div>
+          <div class="note">Izzayyak (to him), ayza, kwayyesa</div>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="screen hidden" id="screen-primer">
+    <h2>How this actually teaches you</h2>
+    <ol class="primer">
+      <li><strong>Hear it.</strong> The game says the word out loud. You don’t need the alphabet yet.</li>
+      <li><strong>See the sound.</strong> <em>Aywa</em> is English letters for أيوه. That’s your on-ramp.</li>
+      <li><strong>The Arabic sits there anyway</strong> so your eyes get used to the shapes.</li>
+      <li><strong>First use is open-book.</strong> The meaning is on the card. Play it. That’s practice, not a test.</li>
+      <li><strong>Next time we hide it</strong> and ask. Miss it and you take a point of damage — the word stays in your hand.</li>
+    </ol>
+    <p class="blurb">First cafe: six words. Hi, yes, no, how are you, I’m good, thanks. That’s a real conversation.</p>
+    <button class="btn" id="primer-go">Open the first pack</button>
+  </section>
+
+  <section class="screen hidden" id="screen-pack">
+    <h2>Starter pack</h2>
+    <p id="pack-hint" class="tag">Click a card to flip it.</p>
+    <div class="pack-row" id="pack-row"></div>
+    <button class="btn hidden" id="pack-continue">Walk into the cafe</button>
+  </section>
+
+  <section class="screen hidden" id="screen-collection">
+    <header>
+      <h2>Collection</h2>
+      <button class="btn ghost" id="back-title">Back</button>
+    </header>
+    <div class="grid" id="collection-grid"></div>
+  </section>
+
+  <section class="screen hidden" id="screen-battle">
+    <div class="topbar">
+      <div class="match" id="match-title">Ahwa Hassan</div>
+      <div class="coach" id="coach"></div>
+    </div>
+    <div class="log" id="log"></div>
+    <div class="board-wrap">
+      <div class="lane enemy" id="enemy-board"></div>
+      <div class="lane player" id="player-board"></div>
+    </div>
+    <div class="side">
+      <div class="hero" id="enemy-hero">
+        <div class="frame"><img id="enemy-hero-img" src="assets/enemy.jpg" alt="" /></div>
+        <div class="hp" id="enemy-hp">25</div>
+        <div class="name">عم حسن</div>
+      </div>
+      <div id="enemy-mana"></div>
+      <button class="end-turn" id="end-turn">End Turn</button>
+      <button class="hero-power" id="hero-power">اسمع<br />Listen<br />2</button>
+      <div id="player-mana"></div>
+      <div class="hero" id="player-hero">
+        <div class="frame"><img id="player-hero-img" src="assets/hero-m.jpg" alt="" /></div>
+        <div class="hp" id="player-hp">30</div>
+        <div class="name" id="player-name">الغريب</div>
+      </div>
+    </div>
+    <div class="hand-bar" id="hand"></div>
+  </section>
+  <div class="target-banner hidden" id="target-banner">
+    Click a minion. <button class="btn ghost" id="cancel-target">Cancel</button>
+  </div>
+
+  <section class="screen hidden" id="screen-end">
+    <h2 id="end-title">خلاص</h2>
+    <p class="tag" id="end-sub"></p>
+    <p class="recap" id="end-recap"></p>
+    <button class="btn" id="again-btn">Rematch</button>
+    <button class="btn ghost" id="end-collection">Collection</button>
+    <button class="btn ghost" id="end-to-title">Title</button>
+  </section>
+
+  <div id="modal" class="hidden"></div>
+  <div id="speaker" class="hidden">
+    <div id="speaker-label">Playing…</div>
+    <audio id="voice" controls preload="auto"></audio>
+  </div>
+
+  <script src="js/cards.js?v=5"></script>
+  <script src="js/audio-map.js?v=5"></script>
+  <script src="js/game.js?v=5"></script>
+</body>
+</html>

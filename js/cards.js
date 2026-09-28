@@ -1,0 +1,696 @@
+// © 2026 Mathew. All rights reserved.
+/* BAB — Egyptian Arabic card pool. Arabic on the card is the real word. */
+
+function card(def) {
+  return Object.assign(
+    {
+      type: "minion",
+      rarity: "common",
+      attack: 0,
+      health: 0,
+      taunt: false,
+      flavor: "",
+      notes: "",
+      target: null,
+    },
+    def
+  );
+}
+
+const CARDS = {
+  aywa: card({
+    id: "aywa",
+    nameAr: "أيوه",
+    nameLat: "Aywa",
+    say: "AY-wa",
+    type: "spell",
+    cost: 1,
+    rarity: "common",
+    art: "assets/aywa.jpg",
+    text: "Restore 2 Health.",
+    flavor: "The Cairo yes. نعم is for the news.",
+    meaning: "Yes",
+    notes: "Aywa is the everyday yes. Naʿam is MSA / formal.",
+    effect: { type: "healHero", amount: 2 },
+    quizzes: [
+      {
+        q: "What does أيوه (Aywa) mean?",
+        choices: ["Yes", "No", "Please"],
+        answer: 0,
+      },
+      {
+        q: "How do you say YES in Egyptian?",
+        choices: ["Aywa", "Naʿam", "Inshaallah"],
+        answer: 0,
+      },
+    ],
+  }),
+
+  la2: card({
+    id: "la2",
+    nameAr: "لأ",
+    nameLat: "La2",
+    say: "laʾ",
+    type: "spell",
+    cost: 1,
+    rarity: "common",
+    art: "assets/la2.jpg",
+    text: "Deal 2 damage to the enemy hero.",
+    flavor: "Short, sharp, and the glottal stop is the whole personality.",
+    meaning: "No",
+    notes: "The 2 is a glottal stop. Not 'laaa'. Clip it.",
+    effect: { type: "hitEnemyHero", amount: 2 },
+    quizzes: [
+      { q: "What does لأ (La2) mean?", choices: ["Yes", "No", "Stop"], answer: 1 },
+      {
+        q: "How do you say NO in Egyptian?",
+        choices: ["Laa", "La2", "Mish"],
+        answer: 1,
+      },
+    ],
+  }),
+
+  ahlan: card({
+    id: "ahlan",
+    nameAr: "أهلا",
+    nameLat: "Ahlan",
+    say: "AH-lan",
+    type: "minion",
+    cost: 1,
+    attack: 2,
+    health: 1,
+    art: "assets/ahlan.jpg",
+    text: "Battlecry: If the board is empty, draw a card.",
+    flavor: "Walk through the door like you were invited.",
+    meaning: "Hi / welcome",
+    notes: "Ahlan is hello and welcome. Ahlan wa sahlan is the long form.",
+    battlecry: { type: "drawIfEmpty" },
+    quizzes: [
+      {
+        q: "What does أهلا (Ahlan) mean?",
+        choices: ["Goodbye", "Hi / welcome", "Thank you"],
+        answer: 1,
+      },
+      {
+        q: "Someone opens the cafe door. You say…",
+        choices: ["Maʿa salama", "Ahlan", "Bokra"],
+        answer: 1,
+      },
+    ],
+  }),
+
+  ana: card({
+    id: "ana",
+    nameAr: "أنا",
+    nameLat: "Ana",
+    say: "ah-NA",
+    type: "minion",
+    cost: 1,
+    attack: 1,
+    health: 2,
+    art: "assets/ana.jpg",
+    text: "",
+    flavor: "Point at yourself. This one does not change.",
+    meaning: "I / me",
+    notes: "Ana is I. Same for everyone.",
+    quizzes: [
+      { q: "What does أنا (Ana) mean?", choices: ["You", "I / me", "He"], answer: 1 },
+    ],
+  }),
+
+  enta: card({
+    id: "enta",
+    nameAr: "إنت",
+    nameLat: "Enta",
+    say: "EN-ta",
+    type: "minion",
+    cost: 1,
+    attack: 1,
+    health: 2,
+    gender: "m",
+    art: "assets/enta.jpg",
+    text: "",
+    flavor: "Point at him. إنتي (Enti) is for her.",
+    meaning: "You (to a man)",
+    notes: "Egyptian drops the extra vowel from MSA anta → enta.",
+    quizzes: [
+      {
+        q: "إنت (Enta) means you, talking to…",
+        choices: ["A man", "A woman", "A group"],
+        answer: 0,
+      },
+      {
+        q: "MSA says anta. Egyptian says…",
+        choices: ["Anta", "Enta", "Inte"],
+        answer: 1,
+      },
+    ],
+  }),
+
+  enti: card({
+    id: "enti",
+    nameAr: "إنتي",
+    nameLat: "Enti",
+    say: "EN-tee",
+    type: "minion",
+    cost: 1,
+    attack: 1,
+    health: 2,
+    gender: "f",
+    art: "assets/enta.jpg",
+    text: "",
+    flavor: "Point at her.",
+    meaning: "You (to a woman)",
+    notes: "Enti = you, feminine. Enta = masculine.",
+    quizzes: [
+      {
+        q: "إنتي (Enti) means you, talking to…",
+        choices: ["A man", "A woman", "Anyone"],
+        answer: 1,
+      },
+    ],
+  }),
+
+  izzayyak: card({
+    id: "izzayyak",
+    nameAr: "إزيّك",
+    nameLat: "Izzayyak",
+    say: "iz-ZAY-yak",
+    type: "minion",
+    cost: 2,
+    attack: 2,
+    health: 3,
+    rarity: "rare",
+    art: "assets/izzayyak.jpg",
+    text: "",
+    flavor: "The national opening move. To a woman: Izzayyik.",
+    meaning: "How are you? (to a man)",
+    notes: "Izzayyak = to a man. Izzayyik = to a woman. Amm Hassan is a man.",
+    quizzes: [
+      {
+        q: "إزيّك (Izzayyak) means…",
+        choices: ["What's this?", "How are you?", "Where are you?"],
+        answer: 1,
+      },
+      {
+        q: "You ask a man how he is. You say…",
+        choices: ["Kayfa haluk", "Izzayyik", "Izzayyak"],
+        answer: 2,
+      },
+    ],
+  }),
+
+  kwayyes: card({
+    id: "kwayyes",
+    nameAr: "كويس",
+    nameLat: "Kwayyes",
+    say: "kwye-YES",
+    type: "spell",
+    cost: 2,
+    rarity: "common",
+    art: "assets/kwayyes.jpg",
+    text: "Restore 3 Health. Give a random friendly minion +1/+1.",
+    flavor: "The answer to إزيّك, if you are a man.",
+    meaning: "Fine / good (m)",
+    notes: "About a man, or you (if you are a man): kwayyes. Woman: kwayyesa.",
+    effect: { type: "healAndBuff", amount: 3, buff: [1, 1] },
+    quizzes: [
+      {
+        q: "كويس (Kwayyes) means…",
+        choices: ["Bad", "Fine / good", "Hungry"],
+        answer: 1,
+      },
+      {
+        q: "Amm Hassan asks إزيّك. A man answers…",
+        choices: ["Ana bikhayr", "Kwayyes", "Tamam shukran jazeelan"],
+        answer: 1,
+      },
+    ],
+  }),
+
+  kwayyesa: card({
+    id: "kwayyesa",
+    nameAr: "كويسة",
+    nameLat: "Kwayyesa",
+    say: "kwye-YES-sa",
+    type: "spell",
+    cost: 2,
+    art: "assets/kwayyes.jpg",
+    text: "Restore 3 Health. Give a random friendly minion +1/+1.",
+    flavor: "Same card, feminine ending. Egyptian does this a lot.",
+    meaning: "Fine / good (f)",
+    notes: "If you are a woman talking about yourself: kwayyesa.",
+    effect: { type: "healAndBuff", amount: 3, buff: [1, 1] },
+    quizzes: [
+      {
+        q: "You are a woman. 'I'm fine' is…",
+        choices: ["Kwayyes", "Kwayyesa", "Kwayyeseen"],
+        answer: 1,
+      },
+    ],
+  }),
+
+  mayya: card({
+    id: "mayya",
+    nameAr: "ميه",
+    nameLat: "Mayya",
+    say: "MAY-ya",
+    type: "minion",
+    cost: 1,
+    attack: 1,
+    health: 3,
+    taunt: true,
+    art: "assets/mayya.jpg",
+    text: "Taunt",
+    flavor: "Do not order ماء in a koshary shop unless you want a look.",
+    meaning: "Water",
+    notes: "Egyptian mayya. MSA maaʾ. Same liquid, different card.",
+    quizzes: [
+      {
+        q: "ميه (Mayya) means…",
+        choices: ["Bread", "Tea", "Water"],
+        answer: 2,
+      },
+      {
+        q: "How do Egyptians say water?",
+        choices: ["Maaʾ", "Mayya", "Moyya el-nil"],
+        answer: 1,
+      },
+    ],
+  }),
+
+  eesh: card({
+    id: "eesh",
+    nameAr: "عيش",
+    nameLat: "Eesh",
+    say: "eesh",
+    type: "minion",
+    cost: 2,
+    attack: 2,
+    health: 3,
+    taunt: true,
+    rarity: "legendary",
+    art: "assets/eesh.jpg",
+    text: "Taunt",
+    flavor: "In Cairo, bread is called life. Budget accordingly.",
+    meaning: "Bread (also: life)",
+    notes: "ʿEesh = bread AND life. MSA khubz is the other word.",
+    quizzes: [
+      {
+        q: "عيش (Eesh) in Egyptian is…",
+        choices: ["Rice", "Bread (and life)", "Meat"],
+        answer: 1,
+      },
+      {
+        q: "MSA khubz. Egyptian street word is…",
+        choices: ["Eesh", "Khubz", "Aish baladi only"],
+        answer: 0,
+      },
+    ],
+  }),
+
+  eeh: card({
+    id: "eeh",
+    nameAr: "إيه",
+    nameLat: "Eeh",
+    say: "eeh",
+    type: "spell",
+    cost: 1,
+    rarity: "rare",
+    art: "assets/eeh.jpg",
+    text: "Draw a card.",
+    flavor: "The raised eyebrow, as a word.",
+    meaning: "What?",
+    notes: "Eeh = what. 'Ismak eeh?' = what's your name?",
+    effect: { type: "draw", amount: 1 },
+    quizzes: [
+      { q: "إيه (Eeh) means…", choices: ["Who", "What", "Why"], answer: 1 },
+      {
+        q: "How do you say WHAT in Egyptian?",
+        choices: ["Matha", "Eeh", "Shoo"],
+        answer: 1,
+      },
+    ],
+  }),
+
+  aayiz: card({
+    id: "aayiz",
+    nameAr: "عايز",
+    nameLat: "Aayiz",
+    say: "AA-yiz",
+    type: "spell",
+    cost: 2,
+    art: "assets/aayiz.jpg",
+    text: "Deal 3 damage to the enemy hero.",
+    flavor: "Want. Not wish. Point at the thing.",
+    meaning: "I want (m)",
+    notes: "Ana aayiz mayya = I want water. Women say ayza.",
+    effect: { type: "hitEnemyHero", amount: 3 },
+    quizzes: [
+      {
+        q: "عايز (Aayiz) means…",
+        choices: ["I need (formal)", "I want (m)", "I like"],
+        answer: 1,
+      },
+      {
+        q: "A man orders water: Ana ____ mayya.",
+        choices: ["uriid", "aayiz", "ayza"],
+        answer: 1,
+      },
+    ],
+  }),
+
+  ayza: card({
+    id: "ayza",
+    nameAr: "عايزة",
+    nameLat: "Ayza",
+    say: "AY-za",
+    type: "spell",
+    cost: 2,
+    art: "assets/aayiz.jpg",
+    text: "Deal 3 damage to the enemy hero.",
+    flavor: "Same want, feminine ending.",
+    meaning: "I want (f)",
+    notes: "Ana ayza mayya. The aayiz/ayza split is a core Egyptian habit.",
+    effect: { type: "hitEnemyHero", amount: 3 },
+    quizzes: [
+      {
+        q: "A woman says 'I want'. She says…",
+        choices: ["Aayiz", "Ayza", "Aayizeen"],
+        answer: 1,
+      },
+    ],
+  }),
+
+  shukran: card({
+    id: "shukran",
+    nameAr: "شكرا",
+    nameLat: "Shukran",
+    say: "SHUK-ran",
+    type: "spell",
+    cost: 1,
+    art: "assets/shukran.jpg",
+    text: "Restore 4 Health.",
+    flavor: "Also acceptable: mersi. Cairo borrowed the French one.",
+    meaning: "Thank you",
+    notes: "Shukran works everywhere. Mersi is very Egyptian too.",
+    effect: { type: "healHero", amount: 4 },
+    quizzes: [
+      {
+        q: "شكرا (Shukran) means…",
+        choices: ["Please", "Thank you", "Excuse me"],
+        answer: 1,
+      },
+    ],
+  }),
+
+  mish: card({
+    id: "mish",
+    nameAr: "مش",
+    nameLat: "Mish",
+    say: "mish",
+    type: "spell",
+    cost: 2,
+    rarity: "rare",
+    art: "assets/mish.jpg",
+    text: "Silence a minion.",
+    flavor: "Stick this on anything. مش عارف = I don't know.",
+    meaning: "Not",
+    notes: "Mish kwayyes = not good. Mish aayiz = I don't want.",
+    target: "minion",
+    effect: { type: "silence" },
+    quizzes: [
+      { q: "مش (Mish) means…", choices: ["Very", "Not", "Also"], answer: 1 },
+      {
+        q: "'I don't know' in Egyptian starts with…",
+        choices: ["La aʿrif", "Mish ʿaaref", "Ma fi"],
+        answer: 1,
+      },
+    ],
+  }),
+
+  feen: card({
+    id: "feen",
+    nameAr: "فين",
+    nameLat: "Feen",
+    say: "feen",
+    type: "spell",
+    cost: 2,
+    art: "assets/feen.jpg",
+    text: "Deal 2 damage. Draw a card.",
+    flavor: "The lost-tourist spell.",
+    meaning: "Where?",
+    notes: "Feen el-hammam? = where's the bathroom? MSA is ayna.",
+    effect: { type: "hitAndDraw", amount: 2 },
+    quizzes: [
+      { q: "فين (Feen) means…", choices: ["When", "Where", "Who"], answer: 1 },
+      {
+        q: "How do you say WHERE in Egyptian?",
+        choices: ["Ayna", "Feen", "Wein"],
+        answer: 1,
+      },
+    ],
+  }),
+
+  ya3ni: card({
+    id: "ya3ni",
+    nameAr: "يعني",
+    nameLat: "Ya3ni",
+    say: "YA3-ni",
+    type: "spell",
+    cost: 0,
+    rarity: "legendary",
+    art: "assets/ya3ni.jpg",
+    text: "Draw a card.",
+    flavor: "Costs nothing. Means 'I mean.' You will play this every turn.",
+    meaning: "I mean / like…",
+    notes: "Filler word. The 3 is the ʿayn sound, from the throat.",
+    effect: { type: "draw", amount: 1 },
+    quizzes: [
+      {
+        q: "يعني (Ya3ni) is mostly…",
+        choices: ["A threat", "A filler: I mean / like", "A goodbye"],
+        answer: 1,
+      },
+      {
+        q: "The 3 in Ya3ni stands for the letter…",
+        choices: ["ع ʿayn", "ء hamza", "غ ghayn"],
+        answer: 0,
+      },
+    ],
+  }),
+
+  khalaas: card({
+    id: "khalaas",
+    nameAr: "خلاص",
+    nameLat: "Khalaas",
+    say: "kha-LAAS",
+    type: "spell",
+    cost: 4,
+    rarity: "epic",
+    art: "assets/khalaas.jpg",
+    text: "Destroy a minion.",
+    flavor: "End a conversation, a meal, or an argument.",
+    meaning: "Done / enough / stop",
+    notes: "Khalaas is 'that's it.' Soft kh, like clearing your throat lightly.",
+    target: "minion",
+    effect: { type: "destroy" },
+    quizzes: [
+      {
+        q: "خلاص (Khalaas) means…",
+        choices: ["Maybe later", "Done / enough", "Please wait"],
+        answer: 1,
+      },
+    ],
+  }),
+};
+
+const ENEMY_CARDS = {
+  shay: card({
+    id: "shay",
+    nameAr: "شاي",
+    nameLat: "Shay",
+    say: "shay",
+    cost: 1,
+    attack: 1,
+    health: 2,
+    art: "assets/kwayyes.jpg",
+    text: "",
+    meaning: "Tea",
+    quizzes: [],
+  }),
+  izzayyQ: card({
+    id: "izzayyQ",
+    nameAr: "إزيّك؟",
+    nameLat: "Izzayyak?",
+    say: "iz-ZAY-yak",
+    cost: 2,
+    attack: 2,
+    health: 2,
+    rarity: "rare",
+    art: "assets/izzayyak.jpg",
+    text: "A question. Answer it or eat the damage.",
+    meaning: "How are you?",
+    quizzes: [],
+  }),
+  koshary: card({
+    id: "koshary",
+    nameAr: "كشري",
+    nameLat: "Koshary",
+    say: "KO-sha-ry",
+    cost: 3,
+    attack: 3,
+    health: 3,
+    art: "assets/eesh.jpg",
+    text: "",
+    meaning: "Koshary",
+    quizzes: [],
+  }),
+  hesab: card({
+    id: "hesab",
+    nameAr: "الحساب",
+    nameLat: "El-hesab",
+    say: "el-he-SAAB",
+    cost: 4,
+    attack: 4,
+    health: 5,
+    taunt: true,
+    rarity: "epic",
+    art: "assets/khalaas.jpg",
+    text: "Taunt",
+    meaning: "The bill",
+    quizzes: [],
+  }),
+  sukoot: card({
+    id: "sukoot",
+    nameAr: "سكوت",
+    nameLat: "Sukoot",
+    say: "su-KOOT",
+    type: "spell",
+    cost: 2,
+    art: "assets/mish.jpg",
+    text: "Deal 3 damage to the enemy hero.",
+    meaning: "Silence",
+    effect: { type: "hitEnemyHero", amount: 3 },
+    quizzes: [],
+  }),
+  tani: card({
+    id: "tani",
+    nameAr: "تاني",
+    nameLat: "Tani",
+    say: "TA-ni",
+    type: "spell",
+    cost: 1,
+    art: "assets/aywa.jpg",
+    text: "Restore 2 Health.",
+    meaning: "Again / another",
+    effect: { type: "healHero", amount: 2 },
+    quizzes: [],
+  }),
+};
+
+function starterList(gender) {
+  const want = gender === "f" ? "ayza" : "aayiz";
+  const fine = gender === "f" ? "kwayyesa" : "kwayyes";
+  return [
+    "ahlan",
+    "ahlan",
+    "aywa",
+    "aywa",
+    "la2",
+    "la2",
+    "ana",
+    "enta",
+    "izzayyak",
+    "izzayyak",
+    fine,
+    fine,
+    "mayya",
+    "mayya",
+    "eesh",
+    "eeh",
+    want,
+    "shukran",
+    "mish",
+    "feen",
+    "ya3ni",
+    "ya3ni",
+    "khalaas",
+  ];
+}
+
+function enemyList() {
+  return [
+    "shay",
+    "shay",
+    "tani",
+    "izzayyQ",
+    "izzayyQ",
+    "sukoot",
+    "koshary",
+    "koshary",
+    "hesab",
+    "shay",
+    "tani",
+    "sukoot",
+  ];
+}
+
+function defFor(id, enemy) {
+  return enemy ? ENEMY_CARDS[id] : CARDS[id];
+}
+
+/* First cafe: six words, not the whole language. */
+function lesson1List(gender) {
+  const fine = gender === "f" ? "kwayyesa" : "kwayyes";
+  return [
+    "ahlan",
+    "ahlan",
+    "aywa",
+    "aywa",
+    "la2",
+    "la2",
+    "izzayyak",
+    fine,
+    fine,
+    "shukran",
+    "shukran",
+    "ya3ni",
+  ];
+}
+
+function lesson1Enemy() {
+  return ["shay", "shay", "tani", "izzayyQ", "shay", "tani", "izzayyQ"];
+}
+
+const EXAMPLES = {
+  aywa: { ar: "أيوه.", en: "Yes." },
+  la2: { ar: "لأ، شكرا.", en: "No, thanks." },
+  ahlan: { ar: "أهلا!", en: "Hi!" },
+  ana: { ar: "أنا كويس.", en: "I'm good." },
+  enta: { ar: "إنت كويس؟", en: "Are you (m) good?" },
+  enti: { ar: "إنتي كويسة؟", en: "Are you (f) good?" },
+  izzayyak: { ar: "إزيّك؟", en: "How are you?" },
+  kwayyes: { ar: "كويس، الحمد لله.", en: "Good, thank God." },
+  kwayyesa: { ar: "كويسة، الحمد لله.", en: "Good (f), thank God." },
+  mayya: { ar: "عايز ميه.", en: "I want water." },
+  eesh: { ar: "عيش، لو سمحت.", en: "Bread, please." },
+  eeh: { ar: "إيه ده؟", en: "What's that?" },
+  aayiz: { ar: "أنا عايز ميه.", en: "I want water." },
+  ayza: { ar: "أنا عايزة ميه.", en: "I want water." },
+  shukran: { ar: "شكرا.", en: "Thank you." },
+  mish: { ar: "مش عايز.", en: "I don't want (it)." },
+  feen: { ar: "فين الحمام؟", en: "Where's the bathroom?" },
+  ya3ni: { ar: "يعني… أيوه.", en: "I mean… yes." },
+  khalaas: { ar: "خلاص.", en: "That's it. Done." },
+  shay: { ar: "شاي، لو سمحت.", en: "Tea, please." },
+  izzayyQ: { ar: "إزيّك؟", en: "How are you?" },
+  koshary: { ar: "كشري.", en: "Koshary (the dish)." },
+  hesab: { ar: "الحساب، لو سمحت.", en: "The bill, please." },
+  sukoot: { ar: "سكوت.", en: "Quiet / silence." },
+  tani: { ar: "تاني، لو سمحت.", en: "Another one, please." },
+};
+
+function exampleOf(c) {
+  return EXAMPLES[c.id] || { ar: c.nameAr, en: c.meaning };
+}
